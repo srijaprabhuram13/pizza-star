@@ -10,18 +10,16 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --red:#8B1A1A;--red-deep:#6B1010;--red-mid:#A52020;--red-pale:#F2DDD8;--red-faint:#FAF0ED;
-  --warm:#7A4A2A;--warm2:#A07050;--warm3:#C8A080;--warm4:#EAD8C4;--warm5:#F5EDE4;
+  --red:#8B1A1A;--red-deep:#6B1010;--red-mid:#A52020;--red-pale:#F2DDD8;
+  --warm:#7A4A2A;--warm2:#A07050;--warm3:#C8A080;
   --cream:#F8F2E8;--cream2:#EEE4D4;--cream3:#E2D3BC;
   --moss:#2A4A28;--moss-light:#C8DEBC;
-  --gold:#D4A820;--gold-light:#F5E080;--gold-pale:#FAF3D0;
+  --gold:#D4A820;--gold-pale:#FAF3D0;
   --rule:rgba(139,26,26,0.15);
 }
 body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-height:100vh}
-
 .app{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
 
-/* HEADER */
 .masthead{background:var(--red);padding:22px 24px 0}
 .mast-top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.18);padding-bottom:14px;margin-bottom:14px}
 .brand{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1}
@@ -29,13 +27,11 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .eco-stamp{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:4px 9px}
 .mast-meta{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.5);padding-bottom:16px;display:flex;gap:20px}
 
-/* SEARCH */
 .search-zone{background:var(--red-deep);padding:0 24px 20px}
 .search-field{width:100%;background:rgba(255,255,255,0.1);border:0;border-bottom:1px solid rgba(255,255,255,0.25);padding:10px 0;font-family:'Lora',serif;font-size:15px;color:#fff;outline:none;font-style:italic}
 .search-field::placeholder{color:rgba(255,255,255,0.4)}
 .search-field:focus{border-bottom-color:var(--gold)}
 
-/* FILTERS */
 .filter-strip{background:var(--cream2);border-bottom:1px solid var(--rule);padding:14px 24px;display:flex;align-items:center;overflow-x:auto}
 .filter-strip::-webkit-scrollbar{display:none}
 .f-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--warm3);margin-right:18px;flex-shrink:0}
@@ -43,18 +39,15 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .f-btn:hover{color:var(--red)}
 .f-btn.on{color:var(--red);border-bottom-color:var(--red)}
 
-/* PROVENANCE BAR */
 .provenance-bar{background:var(--moss);padding:11px 24px;display:flex;gap:12px;align-items:flex-start}
 .prov-mark{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--moss-light);padding-top:1px;flex-shrink:0}
 .prov-text{font-family:'Lora',serif;font-size:12px;font-style:italic;color:rgba(200,222,188,0.85);line-height:1.55}
 
-/* BODY */
 .body-wrap{padding:0 24px}
 .section-rule{display:flex;align-items:center;gap:12px;padding:28px 0 16px}
 .sr-word{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--warm3);flex-shrink:0}
 .sr-line{flex:1;height:1px;background:var(--rule)}
 
-/* DISH LIST */
 .dish-list{display:flex;flex-direction:column}
 .dish-row{border-top:1px solid var(--rule);padding:20px 0;cursor:pointer;transition:background 0.15s;margin:0 -24px;padding-left:24px;padding-right:24px}
 .dish-row:hover{background:var(--cream2)}
@@ -72,15 +65,14 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .dtag.vegan{color:var(--moss)}
 .dtag.gf{color:var(--red-mid)}
 .dtag.nut{color:var(--warm2)}
+.dish-foot-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.dish-price{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;color:var(--red)}
 .dish-cta{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--warm3);border-bottom:1px solid var(--rule)}
-
 .no-results{padding:40px 24px;font-family:'Lora',serif;font-style:italic;font-size:14px;color:var(--warm3);border-top:1px solid var(--rule)}
 
-/* FOOTER */
 .footer-bar{border-top:2px solid var(--red);padding:16px 24px;background:var(--cream2);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--warm3);display:flex;justify-content:space-between;align-items:center}
 .footer-email{color:var(--red);border-bottom:1px solid var(--red-pale);text-decoration:none}
 
-/* OVERLAY / DRAWER */
 .overlay{display:none;position:fixed;inset:0;background:rgba(107,16,16,0.55);z-index:50;overflow-y:auto}
 .overlay.open{display:block}
 .drawer{background:var(--cream);margin:80px auto 0;max-width:480px;border-top:3px solid var(--gold);position:relative}
@@ -88,7 +80,8 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .drawer-close:hover{color:var(--red)}
 
 .d-hero{background:var(--red);padding:28px 24px 22px}
-.d-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px}
+.d-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.15;margin-bottom:4px}
+.d-price-line{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:600;color:var(--gold);letter-spacing:1px;margin-bottom:10px}
 .d-desc{font-family:'Lora',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,0.7);line-height:1.65;margin-bottom:14px}
 .d-tag-row{display:flex;gap:10px;flex-wrap:wrap}
 .d-hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;padding:4px 8px}
@@ -99,7 +92,6 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 
 .d-section{padding:20px 24px;border-bottom:1px solid var(--rule)}
 .d-sec-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--warm3);margin-bottom:14px}
-
 .carbon-row{display:flex;align-items:center;gap:16px}
 .carbon-grade-big{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1;width:56px;text-align:center;flex-shrink:0}
 .grade-big-a{color:var(--moss)}
@@ -109,9 +101,8 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .bar-track{height:4px;background:var(--cream3)}
 .bar-fill{height:4px}
 .bar-fill-a{background:var(--moss);width:22%}
-.bar-fill-b{background:var(--red-mid);width:56%}
+.bar-fill-b{background:var(--red-mid);width:58%}
 .bar-labels{display:flex;justify-content:space-between;margin-top:5px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--warm3)}
-
 .source-table{width:100%;border-collapse:collapse}
 .source-table tr{border-bottom:1px solid var(--rule)}
 .source-table tr:last-child{border-bottom:none}
@@ -119,7 +110,6 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .s-ingredient{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--warm);width:38%}
 .s-farm{font-family:'Lora',serif;font-size:12px;font-style:italic;color:var(--warm2);line-height:1.4}
 .s-dist{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--moss);text-align:right;white-space:nowrap}
-
 .allergen-list{display:flex;flex-direction:column}
 .a-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule)}
 .a-row:last-child{border-bottom:none}
@@ -178,12 +168,12 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
   </div>
 </div>
 
-<!-- DETAIL OVERLAY -->
 <div class="overlay" id="overlay" onclick="closeIfBg(event)">
   <div class="drawer" id="drawer">
     <button class="drawer-close" onclick="closeDrawer()">&#x2715; Close</button>
     <div class="d-hero">
       <div class="d-name" id="dName"></div>
+      <div class="d-price-line" id="dPrice"></div>
       <div class="d-desc" id="dDesc"></div>
       <div class="d-tag-row" id="dTags"></div>
     </div>
@@ -205,118 +195,107 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 <script>
 const D = [
   {
-    id:1, name:"Penne alla Vodka Pizza",
-    desc:"Our signature: penne pasta folded into a silky vodka cream, laid over a charred Neapolitan base with fresh-pulled mozzarella and hand-torn basil.",
+    id:1, price:"18", name:"Penne Alla Vodka Pizza",
+    desc:"Our signature dish with house-made vodka sauce & fresh mozzarella.",
     tags:["vegetarian","nut-free"],
     carbon:{g:"A",text:"Low carbon impact"},
     sources:[
-      {i:"Mozzarella",       f:"Valley Shepherd Creamery, Long Valley NJ", d:"<25 mi"},
-      {i:"Plum tomatoes",    f:"Melick's Town Farm, Oldwick NJ",            d:"<30 mi"},
-      {i:"Penne pasta",      f:"Severino Pasta, Cherry Hill NJ",            d:"<50 mi"},
-      {i:"Heavy cream",      f:"Bobolink Dairy, Vernon NJ",                 d:"<55 mi"},
-      {i:"Fresh basil",      f:"Whispering Springs Farm, Pennington NJ",    d:"<15 mi"},
+      {i:"Mozzarella",    f:"Valley Shepherd Creamery, Long Valley NJ", d:"<25 mi"},
+      {i:"Plum tomatoes", f:"Melick's Town Farm, Oldwick NJ",           d:"<30 mi"},
+      {i:"Penne pasta",   f:"Severino Pasta, Cherry Hill NJ",           d:"<50 mi"},
+      {i:"Heavy cream",   f:"Bobolink Dairy, Vernon NJ",                d:"<55 mi"},
+      {i:"Fresh basil",   f:"Whispering Springs Farm, Pennington NJ",   d:"<15 mi"},
     ],
     allergens:[
-      {l:"Gluten",      t:"contains"},
-      {l:"Dairy",       t:"contains"},
-      {l:"Eggs",        t:"contains"},
-      {l:"Nut-Free",    t:"free"},
-      {l:"Vegetarian",  t:"free"},
+      {l:"Gluten",     t:"contains"},
+      {l:"Dairy",      t:"contains"},
+      {l:"Eggs",       t:"contains"},
+      {l:"Nut-Free",   t:"free"},
+      {l:"Vegetarian", t:"free"},
     ]
   },
   {
-    id:2, name:"Garden Bianco",
-    desc:"White sauce base, seasonal roasted vegetables, pillowy ricotta, and a finish of local wildflower honey. Earthy and bright in equal measure.",
+    id:2, price:"15", name:"Margherita Classica",
+    desc:"Buffalo mozzarella, fresh basil, extra virgin olive oil.",
     tags:["vegetarian","nut-free"],
     carbon:{g:"A",text:"Very low carbon impact"},
     sources:[
-      {i:"Ricotta",         f:"Cherry Grove Farm, Lawrenceville NJ",     d:"<10 mi"},
-      {i:"Zucchini",        f:"Terhune Orchards, Princeton NJ",           d:"<5 mi"},
-      {i:"Red peppers",     f:"Melick's Town Farm, Oldwick NJ",           d:"<30 mi"},
-      {i:"Wildflower honey",f:"Beekeeper's Naturals, Flemington NJ",      d:"<20 mi"},
-      {i:"Garlic",          f:"Fox Hill Farm, Pittstown NJ",              d:"<35 mi"},
+      {i:"Buffalo mozzarella",    f:"Valley Shepherd Creamery, Long Valley NJ", d:"<25 mi"},
+      {i:"Plum tomatoes",         f:"Melick's Town Farm, Oldwick NJ",           d:"<30 mi"},
+      {i:"Fresh basil",           f:"Whispering Springs Farm, Pennington NJ",   d:"<15 mi"},
+      {i:"Extra virgin olive oil",f:"Imported — Italy (small-batch)",           d:"—"},
     ],
     allergens:[
-      {l:"Gluten",      t:"contains"},
-      {l:"Dairy",       t:"contains"},
-      {l:"Nut-Free",    t:"free"},
+      {l:"Gluten",     t:"contains"},
+      {l:"Dairy",      t:"contains"},
+      {l:"Nut-Free",   t:"free"},
+      {l:"Vegetarian", t:"free"},
+    ]
+  },
+  {
+    id:3, price:"12", name:"Garden Harvest Salad",
+    desc:"Seasonal greens, roasted beets, walnuts & lemon vinaigrette.",
+    tags:["vegetarian","vegan","gluten-free"],
+    carbon:{g:"A",text:"Very low carbon impact"},
+    sources:[
+      {i:"Seasonal greens", f:"Terhune Orchards, Princeton NJ",          d:"<5 mi"},
+      {i:"Beets",           f:"Gravity Hill Farm, Lambertville NJ",      d:"<15 mi"},
+      {i:"Walnuts",         f:"Local supplier, Flemington NJ",           d:"<25 mi"},
+      {i:"Lemon",           f:"Fox Hill Farm, Pittstown NJ",             d:"<35 mi"},
+    ],
+    allergens:[
+      {l:"Tree nuts",   t:"contains"},
+      {l:"Vegan",       t:"free"},
+      {l:"Gluten-Free", t:"free"},
       {l:"Vegetarian",  t:"free"},
     ]
   },
   {
-    id:3, name:"Mushroom & Truffle",
-    desc:"Wild foraged mushrooms, truffle oil, caramelised onions, aged provolone. An umami-forward pizza built for slow eating.",
-    tags:["vegetarian","gluten-free","nut-free"],
+    id:4, price:"22", name:"Truffle Mushroom Pasta",
+    desc:"House-made pasta, wild mushrooms & black truffle oil.",
+    tags:["vegetarian","nut-free"],
     carbon:{g:"B",text:"Moderate carbon impact"},
     sources:[
-      {i:"Wild mushrooms", f:"Shibumi Farm, Kutztown PA",          d:"<60 mi"},
-      {i:"Provolone",      f:"Maplehofe Dairy, Quarryville PA",     d:"<55 mi"},
-      {i:"Truffle oil",    f:"Imported — Italy (small vol.)",       d:"—"},
-      {i:"Onions",         f:"Terhune Orchards, Princeton NJ",      d:"<5 mi"},
+      {i:"Wild mushrooms", f:"Shibumi Farm, Kutztown PA",              d:"<60 mi"},
+      {i:"Black truffle oil",f:"Imported — Italy (small vol.)",        d:"—"},
+      {i:"Pasta",          f:"Severino Pasta, Cherry Hill NJ",         d:"<50 mi"},
+      {i:"Garlic",         f:"Fox Hill Farm, Pittstown NJ",            d:"<35 mi"},
     ],
     allergens:[
-      {l:"Dairy",               t:"contains"},
-      {l:"Gluten-Free crust",   t:"free"},
-      {l:"Nut-Free",            t:"free"},
-      {l:"Vegetarian",          t:"free"},
+      {l:"Gluten",     t:"contains"},
+      {l:"Dairy",      t:"contains"},
+      {l:"Eggs",       t:"contains"},
+      {l:"Nut-Free",   t:"free"},
+      {l:"Vegetarian", t:"free"},
     ]
   },
   {
-    id:4, name:"Classic Margherita",
-    desc:"Crushed tomatoes, fresh mozzarella, hand-torn basil, cold-pressed olive oil. The discipline of restraint.",
-    tags:["vegetarian","gluten-free","nut-free"],
-    carbon:{g:"A",text:"Very low carbon impact"},
-    sources:[
-      {i:"Mozzarella di bufala",    f:"Valley Shepherd Creamery, Long Valley NJ", d:"<25 mi"},
-      {i:"Crushed tomatoes",        f:"Melick's Town Farm, Oldwick NJ",            d:"<30 mi"},
-      {i:"Fresh basil",             f:"Whispering Springs Farm, Pennington NJ",    d:"<15 mi"},
-      {i:"Extra-virgin olive oil",  f:"Imported — Italy (small-batch)",            d:"—"},
-    ],
-    allergens:[
-      {l:"Gluten",                    t:"contains"},
-      {l:"Dairy",                     t:"contains"},
-      {l:"Gluten-Free crust available",t:"free"},
-      {l:"Nut-Free",                  t:"free"},
-      {l:"Vegetarian",                t:"free"},
-    ]
-  },
-  {
-    id:5, name:"Green Dream",
-    desc:"Cashew cream, roasted broccolini, pickled red onion, avocado, house chili oil. Fully plant-based. Our lowest-footprint pie.",
-    tags:["vegan","gluten-free"],
-    carbon:{g:"A",text:"Lowest carbon footprint"},
-    sources:[
-      {i:"Cashew cream", f:"In-house (cashews: Nut Republic, NJ)", d:"<40 mi"},
-      {i:"Broccolini",   f:"Terhune Orchards, Princeton NJ",       d:"<5 mi"},
-      {i:"Avocado",      f:"Imported — Mexico (seasonal)",         d:"—"},
-      {i:"Red onion",    f:"Fox Hill Farm, Pittstown NJ",          d:"<35 mi"},
-    ],
-    allergens:[
-      {l:"Tree nuts",                   t:"contains"},
-      {l:"Vegan",                       t:"free"},
-      {l:"Dairy-Free",                  t:"free"},
-      {l:"Gluten-Free crust available", t:"free"},
-    ]
-  },
-  {
-    id:6, name:"Burrata & Prosciutto",
-    desc:"Pillowy burrata, thin-sliced prosciutto di Parma, peppery arugula, fig jam on our sourdough crust. An indulgence that earns it.",
-    tags:["nut-free"],
+    id:5, price:"9", name:"Classic Tiramisu",
+    desc:"House-made with NJ eggs, mascarpone & espresso.",
+    tags:["vegetarian","nut-free"],
     carbon:{g:"B",text:"Moderate carbon impact"},
     sources:[
-      {i:"Burrata",           f:"DiBruno Bros, Philadelphia PA",    d:"<50 mi"},
-      {i:"Prosciutto di Parma",f:"Imported — Parma, Italy",         d:"—"},
-      {i:"Arugula",           f:"Gravity Hill Farm, Lambertville NJ",d:"<15 mi"},
-      {i:"Fig jam",           f:"Stony Hill Farm, Chester NJ",      d:"<40 mi"},
+      {i:"Eggs",        f:"Griggstown Farm, Princeton NJ",             d:"<10 mi"},
+      {i:"Mascarpone",  f:"Cherry Grove Farm, Lawrenceville NJ",       d:"<10 mi"},
+      {i:"Espresso",    f:"Small-batch roaster, Trenton NJ",           d:"<20 mi"},
+      {i:"Ladyfingers", f:"Local Italian bakery, Princeton NJ",        d:"<5 mi"},
     ],
     allergens:[
-      {l:"Gluten",  t:"contains"},
-      {l:"Dairy",   t:"contains"},
-      {l:"Pork",    t:"contains"},
-      {l:"Nut-Free",t:"free"},
+      {l:"Gluten",     t:"contains"},
+      {l:"Dairy",      t:"contains"},
+      {l:"Eggs",       t:"contains"},
+      {l:"Nut-Free",   t:"free"},
+      {l:"Vegetarian", t:"free"},
     ]
   },
 ];
+
+const tagMap = {
+  vegetarian:   {cls:'veg',   label:'Vegetarian'},
+  vegan:        {cls:'vegan', label:'Vegan'},
+  'gluten-free':{cls:'gf',    label:'Gluten-Free'},
+  'nut-free':   {cls:'nut',   label:'Nut-Free'},
+};
 
 let activeFilter = 'all';
 
@@ -330,7 +309,7 @@ function setFilter(f, btn) {
 function render() {
   const q = (document.getElementById('searchInput').value || '').toLowerCase();
   const list = document.getElementById('dishList');
-  const noR = document.getElementById('noResults');
+  const noR  = document.getElementById('noResults');
   const filtered = D.filter(d => {
     const mf = activeFilter === 'all' || d.tags.includes(activeFilter);
     const ms = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.sources.some(s => s.i.toLowerCase().includes(q));
@@ -338,12 +317,6 @@ function render() {
   });
   if (!filtered.length) { list.innerHTML = ''; noR.style.display = 'block'; return; }
   noR.style.display = 'none';
-  const tagMap = {
-    vegetarian:   {cls:'veg',   label:'Vegetarian'},
-    vegan:        {cls:'vegan', label:'Vegan'},
-    'gluten-free':{cls:'gf',    label:'Gluten-Free'},
-    'nut-free':   {cls:'nut',   label:'Nut-Free'},
-  };
   list.innerHTML = filtered.map(d => `
     <div class="dish-row" onclick="openDish(${d.id})">
       <div class="dish-top">
@@ -353,7 +326,10 @@ function render() {
       <div class="dish-desc">${d.desc}</div>
       <div class="dish-footer">
         <div class="dish-tags">${d.tags.map(t => `<span class="dtag ${tagMap[t]?tagMap[t].cls:''}">${tagMap[t]?tagMap[t].label:t}</span>`).join('')}</div>
-        <span class="dish-cta">View sourcing</span>
+        <div class="dish-foot-right">
+          <span class="dish-price">$${d.price}</span>
+          <span class="dish-cta">View sourcing</span>
+        </div>
       </div>
     </div>
   `).join('');
@@ -362,14 +338,9 @@ function render() {
 function openDish(id) {
   const d = D.find(x => x.id === id);
   if (!d) return;
-  const tagMap = {
-    vegetarian:   {cls:'veg',   label:'Vegetarian'},
-    vegan:        {cls:'vegan', label:'Vegan'},
-    'gluten-free':{cls:'gf',    label:'Gluten-Free'},
-    'nut-free':   {cls:'nut',   label:'Nut-Free'},
-  };
-  document.getElementById('dName').textContent = d.name;
-  document.getElementById('dDesc').textContent = d.desc;
+  document.getElementById('dName').textContent  = d.name;
+  document.getElementById('dPrice').textContent = '$' + d.price;
+  document.getElementById('dDesc').textContent  = d.desc;
   document.getElementById('dTags').innerHTML = d.tags.map(t =>
     `<span class="d-hero-tag ${tagMap[t]?tagMap[t].cls:''}">${tagMap[t]?tagMap[t].label:t}</span>`
   ).join('');

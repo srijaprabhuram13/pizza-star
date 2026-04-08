@@ -73,7 +73,6 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 .dtag.gf{color:var(--red-mid)}
 .dtag.nut{color:var(--warm2)}
 .dish-cta{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--warm3);border-bottom:1px solid var(--rule)}
-.dish-price{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;color:var(--red);flex-shrink:0}
 
 .no-results{padding:40px 24px;font-family:'Lora',serif;font-style:italic;font-size:14px;color:var(--warm3);border-top:1px solid var(--rule)}
 
@@ -175,7 +174,7 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
 
   <div class="footer-bar">
     <span>Questions? Ask your server</span>
-    <a class="footer-email" href="/cdn-cgi/l/email-protection#2e4b4d416e5e4754544f5d5a4f5c5e5c47404d4b5a4140004d4143"><span class="__cf_email__" data-cfemail="4227212d02322b3838233136233032302b2c2127362d2c6c212d2f">[email&#160;protected]</span></a>
+    <a class="footer-email" href="mailto:eco@pizzastarprinceton.com">eco@pizzastarprinceton.com</a>
   </div>
 </div>
 
@@ -203,10 +202,10 @@ body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-heig
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const D = [
   {
-    id:1, price:22, name:"Penne alla Vodka Pizza",
+    id:1, name:"Penne alla Vodka Pizza",
     desc:"Our signature: penne pasta folded into a silky vodka cream, laid over a charred Neapolitan base with fresh-pulled mozzarella and hand-torn basil.",
     tags:["vegetarian","nut-free"],
     carbon:{g:"A",text:"Low carbon impact"},
@@ -226,7 +225,7 @@ const D = [
     ]
   },
   {
-    id:2, price:19, name:"Garden Bianco",
+    id:2, name:"Garden Bianco",
     desc:"White sauce base, seasonal roasted vegetables, pillowy ricotta, and a finish of local wildflower honey. Earthy and bright in equal measure.",
     tags:["vegetarian","nut-free"],
     carbon:{g:"A",text:"Very low carbon impact"},
@@ -245,7 +244,7 @@ const D = [
     ]
   },
   {
-    id:3, price:24, name:"Mushroom & Truffle",
+    id:3, name:"Mushroom & Truffle",
     desc:"Wild foraged mushrooms, truffle oil, caramelised onions, aged provolone. An umami-forward pizza built for slow eating.",
     tags:["vegetarian","gluten-free","nut-free"],
     carbon:{g:"B",text:"Moderate carbon impact"},
@@ -263,7 +262,7 @@ const D = [
     ]
   },
   {
-    id:4, price:17, name:"Classic Margherita",
+    id:4, name:"Classic Margherita",
     desc:"Crushed tomatoes, fresh mozzarella, hand-torn basil, cold-pressed olive oil. The discipline of restraint.",
     tags:["vegetarian","gluten-free","nut-free"],
     carbon:{g:"A",text:"Very low carbon impact"},
@@ -282,7 +281,7 @@ const D = [
     ]
   },
   {
-    id:5, price:21, name:"Green Dream",
+    id:5, name:"Green Dream",
     desc:"Cashew cream, roasted broccolini, pickled red onion, avocado, house chili oil. Fully plant-based. Our lowest-footprint pie.",
     tags:["vegan","gluten-free"],
     carbon:{g:"A",text:"Lowest carbon footprint"},
@@ -300,7 +299,7 @@ const D = [
     ]
   },
   {
-    id:6, price:26, name:"Burrata & Prosciutto",
+    id:6, name:"Burrata & Prosciutto",
     desc:"Pillowy burrata, thin-sliced prosciutto di Parma, peppery arugula, fig jam on our sourdough crust. An indulgence that earns it.",
     tags:["nut-free"],
     carbon:{g:"B",text:"Moderate carbon impact"},
@@ -354,10 +353,7 @@ function render() {
       <div class="dish-desc">${d.desc}</div>
       <div class="dish-footer">
         <div class="dish-tags">${d.tags.map(t => `<span class="dtag ${tagMap[t]?tagMap[t].cls:''}">${tagMap[t]?tagMap[t].label:t}</span>`).join('')}</div>
-        <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
-          <span class="dish-price">$${d.price}</span>
-          <span class="dish-cta">View sourcing</span>
-        </div>
+        <span class="dish-cta">View sourcing</span>
       </div>
     </div>
   `).join('');
@@ -401,4 +397,16 @@ function openDish(id) {
   document.body.style.overflow = 'hidden';
 }
 
-func
+function closeDrawer() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeIfBg(e) {
+  if (e.target === document.getElementById('overlay')) closeDrawer();
+}
+
+render();
+</script>
+</body>
+</html>

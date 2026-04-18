@@ -100,11 +100,19 @@ body {
 
 /* ─── HERO ─────────────────────────────────────────────────── */
 .hero {
-  background: var(--red);
-  padding: 52px 32px 44px;
+  background: linear-gradient(155deg, #C41E3A 0%, #8B0F25 100%);
+  padding: 56px 32px 52px;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+/* subtle radial vignette for depth */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, transparent 50%, rgba(0,0,0,0.18) 100%);
+  pointer-events: none;
 }
 .hero::after {
   content: '';
@@ -112,50 +120,67 @@ body {
   bottom: -1px;
   left: 0;
   right: 0;
-  height: 32px;
+  height: 36px;
   background: var(--bg);
   clip-path: ellipse(55% 100% at 50% 100%);
   pointer-events: none;
 }
 .hero-eyebrow {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 2.5px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 14px;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 18px;
+  position: relative;
 }
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 5.5vw, 46px);
+  font-size: clamp(48px, 9vw, 72px);
   font-weight: 900;
-  color: #C8E8B0;
-  letter-spacing: -1px;
-  line-height: 1.12;
-  margin-bottom: 16px;
+  color: #FAF6F0;
+  letter-spacing: -2px;
+  line-height: 1.0;
+  margin-bottom: 12px;
+  position: relative;
 }
-.hero-title em { font-style: italic; color: var(--gold); }
+.hero-title em { font-style: italic; color: #FAF6F0; }
+.hero-eco-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+  position: relative;
+}
 .hero-sub {
   font-size: 15px;
   font-weight: 400;
-  color: rgba(255,255,255,0.6);
-  max-width: 380px;
+  color: rgba(255,255,255,0.58);
+  max-width: 340px;
   margin: 0 auto 28px;
   line-height: 1.65;
   letter-spacing: 0.1px;
+  position: relative;
 }
 .hero-pills {
   display: flex;
   justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
+  position: relative;
 }
 .hero-pill {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255,255,255,0.65);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
   padding: 5px 14px;
   border-radius: 999px;
   letter-spacing: 0.2px;
@@ -304,9 +329,45 @@ body {
 }
 .dish-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 1.5px rgba(196,30,58,0.12);
 }
 .dish-card:active { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* ─── FEATURED CARD ────────────────────────────────────────── */
+.dish-card.featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  min-height: 230px;
+}
+.dish-card.featured .card-img-wrap {
+  width: 42%;
+  height: auto;
+  min-height: 230px;
+  flex-shrink: 0;
+}
+.dish-card.featured .card-body {
+  padding: 26px 28px;
+  justify-content: center;
+}
+.dish-card.featured .card-name { font-size: 22px; line-height: 1.2; }
+.dish-card.featured .card-desc { font-size: 14px; }
+.featured-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(184,149,106,0.35);
+  background: var(--gold-bg);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .dish-card.featured { flex-direction: column; }
+  .dish-card.featured .card-img-wrap { width: 100%; height: 200px; min-height: unset; }
+}
 
 .card-img-wrap {
   width: 100%;
@@ -738,7 +799,8 @@ body {
 <!-- ── HERO ─────────────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-eyebrow">Princeton, NJ — Est. 2019</div>
-  <h1 class="hero-title">Pizza <em>Star</em><br>Eco Menu</h1>
+  <h1 class="hero-title">Pizza <em>Star</em></h1>
+  <div class="hero-eco-label">Eco Menu</div>
   <p class="hero-sub">Every dish sourced within 60 miles. Seasonal ingredients, local farms, transparent origins.</p>
   <div class="hero-pills">
     <span class="hero-pill">Princeton, NJ</span>
@@ -965,11 +1027,15 @@ function render() {
     return;
   }
 
-  list.innerHTML = filtered.map(d => `
-    <div class="dish-card" onclick="openDish(${d.id})" role="button" tabindex="0"
+  list.innerHTML = filtered.map((d, i) => {
+    const featured = i === 0;
+    const badge = featured ? `<div class="featured-badge">Chef's Pick</div>` : '';
+    return `
+    <div class="dish-card${featured ? ' featured' : ''}" onclick="openDish(${d.id})" role="button" tabindex="0"
          onkeydown="if(event.key==='Enter'||event.key===' ')openDish(${d.id})">
       <div class="card-img-wrap">${imgTag(d.img, d.name)}</div>
       <div class="card-body">
+        ${badge}
         <div class="card-top">
           <h3 class="card-name">${d.name}</h3>
           <span class="card-badge badge-${d.carbon.g.toLowerCase()}">${d.carbon.g} Grade</span>
@@ -990,8 +1056,8 @@ function render() {
           </div>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 function openDish(id) {

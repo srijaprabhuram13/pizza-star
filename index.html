@@ -6,197 +6,816 @@
 <title>Pizza Star — Eco Menu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow+Condensed:wght@400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#8B1A1A;--red-deep:#6B1010;--red-mid:#A52020;--red-pale:#F2DDD8;
-  --warm:#7A4A2A;--warm2:#A07050;--warm3:#C8A080;
-  --cream:#F8F2E8;--cream2:#EEE4D4;--cream3:#E2D3BC;
-  --moss:#2A4A28;--moss-light:#C8DEBC;
-  --gold:#D4A820;--gold-pale:#FAF3D0;
-  --rule:rgba(139,26,26,0.15);
+/* ─── RESET & ROOT ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red:        #C41E3A;
+  --red-deep:   #A0182E;
+  --red-hover:  #D42040;
+  --red-ghost:  rgba(196,30,58,0.07);
+  --moss:       #2C5F2E;
+  --moss-bg:    #E8F2E8;
+  --moss-text:  #2C5F2E;
+  --gold:       #B8956A;
+  --gold-bg:    #F5EFE6;
+  --bg:         #F5F0E8;
+  --card:       #FDFAF5;
+  --border:     rgba(0,0,0,0.09);
+  --border-mid: rgba(0,0,0,0.14);
+  --text:       #2B2B3A;
+  --text-2:     #5A5A6A;
+  --text-3:     #9A9AA8;
+  --shadow-xs:  0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md:  0 6px 20px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg:  0 16px 40px rgba(0,0,0,0.13), 0 6px 12px rgba(0,0,0,0.06);
+  --radius:     12px;
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
 }
-body{font-family:'Lora',serif;background:var(--cream);color:var(--warm);min-height:100vh}
-.app{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-.masthead{background:var(--red);padding:22px 24px 0}
-.mast-top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.18);padding-bottom:14px;margin-bottom:14px}
-.brand{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1}
-.brand em{font-style:italic;color:var(--gold);font-size:28px}
-.eco-stamp{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:4px 9px}
-.mast-meta{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.5);padding-bottom:16px;display:flex;gap:20px}
+/* ─── STICKY NAV ───────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245,240,232,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--moss);
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.nav-brand em { font-style: normal; color: var(--red); }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-links { display: flex; align-items: center; gap: 22px; list-style: none; }
+.nav-links a {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.15s;
+  letter-spacing: 0.1px;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-eco {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--moss-text);
+  background: var(--moss-bg);
+  border: 1px solid rgba(42,74,40,0.12);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+@media (max-width: 600px) {
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+}
 
-.search-zone{background:var(--red-deep);padding:0 24px 20px}
-.search-field{width:100%;background:rgba(255,255,255,0.1);border:0;border-bottom:1px solid rgba(255,255,255,0.25);padding:10px 0;font-family:'Lora',serif;font-size:15px;color:#fff;outline:none;font-style:italic}
-.search-field::placeholder{color:rgba(255,255,255,0.4)}
-.search-field:focus{border-bottom-color:var(--gold)}
+/* ─── HERO ─────────────────────────────────────────────────── */
+.hero {
+  background: var(--red);
+  padding: 52px 32px 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: var(--bg);
+  clip-path: ellipse(55% 100% at 50% 100%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5.5vw, 46px);
+  font-weight: 900;
+  color: #C8E8B0;
+  letter-spacing: -1px;
+  line-height: 1.12;
+  margin-bottom: 16px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  max-width: 380px;
+  margin: 0 auto 28px;
+  line-height: 1.65;
+  letter-spacing: 0.1px;
+}
+.hero-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hero-pill {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 5px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.2px;
+}
 
-.filter-strip{background:var(--cream2);border-bottom:1px solid var(--rule);padding:14px 24px;display:flex;align-items:center;overflow-x:auto}
-.filter-strip::-webkit-scrollbar{display:none}
-.f-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--warm3);margin-right:18px;flex-shrink:0}
-.f-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.8px;color:var(--warm2);background:none;border:none;cursor:pointer;padding:4px 0;margin-right:20px;border-bottom:2px solid transparent;transition:all 0.15s;flex-shrink:0;text-transform:uppercase}
-.f-btn:hover{color:var(--red)}
-.f-btn.on{color:var(--red);border-bottom-color:var(--red)}
+/* ─── CONTROLS (SEARCH + FILTERS) ──────────────────────────── */
+.controls {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+  box-shadow: var(--shadow-xs);
+}
+.search-wrap { position: relative; }
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+.search-icon svg { width: 16px; height: 16px; }
+.search-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px 0 44px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-input::placeholder { color: var(--text-3); }
+.search-input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-ghost);
+}
+.filter-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 1px;
+}
+.filter-row::-webkit-scrollbar { display: none; }
+.f-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-mid);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  background: var(--card);
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+  white-space: nowrap;
+  flex-shrink: 0;
+  user-select: none;
+}
+.f-pill:hover { border-color: var(--red); color: var(--red); background: var(--red-ghost); }
+.f-pill.on { background: var(--red); border-color: var(--red); color: #fff; }
+@media (max-width: 600px) {
+  .controls { padding: 14px 20px; }
+}
 
-.provenance-bar{background:var(--moss);padding:11px 24px;display:flex;gap:12px;align-items:flex-start}
-.prov-mark{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--moss-light);padding-top:1px;flex-shrink:0}
-.prov-text{font-family:'Lora',serif;font-size:12px;font-style:italic;color:rgba(200,222,188,0.85);line-height:1.55}
+/* ─── PROVENANCE BAR ────────────────────────────────────────── */
+.prov-bar {
+  background: var(--moss);
+  padding: 11px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.prov-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(200,225,190,0.88);
+  line-height: 1.5;
+  letter-spacing: 0.1px;
+}
+.prov-text strong { color: #B8DCA8; font-weight: 600; }
+@media (max-width: 600px) { .prov-bar { padding: 10px 20px; } }
 
-.body-wrap{padding:0 24px}
-.section-rule{display:flex;align-items:center;gap:12px;padding:28px 0 16px}
-.sr-word{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--warm3);flex-shrink:0}
-.sr-line{flex:1;height:1px;background:var(--rule)}
+/* ─── BODY / GRID ──────────────────────────────────────────── */
+.body-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.section-rule {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 36px 0 24px;
+}
+.sr-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+.sr-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+.sr-line { flex: 1; height: 1px; background: var(--border); }
 
-.dish-list{display:flex;flex-direction:column}
-.dish-row{border-top:1px solid var(--rule);padding:20px 0;cursor:pointer;transition:background 0.15s;margin:0 -24px;padding-left:24px;padding-right:24px}
-.dish-row:hover{background:var(--cream2)}
-.dish-row:active{background:var(--cream3)}
-.dish-inner{display:flex;gap:14px;align-items:flex-start}
-.dish-thumb{width:72px;height:72px;flex-shrink:0;background:var(--cream3);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--warm3);text-align:center;line-height:1.5}
-.dish-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.dish-body{flex:1;min-width:0}
-.dish-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.dish-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--red-deep);line-height:1.2;flex:1;padding-right:12px}
-.dish-score{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;flex-shrink:0;padding:3px 7px}
-.score-a{background:var(--moss-light);color:var(--moss)}
-.score-b{background:var(--red-pale);color:var(--red-deep)}
-.dish-desc{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--warm2);line-height:1.6;margin-bottom:10px}
-.dish-footer{display:flex;justify-content:space-between;align-items:center}
-.dish-tags{display:flex;gap:8px;flex-wrap:wrap}
-.dtag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500}
-.dtag.veg{color:var(--moss)}
-.dtag.vegan{color:var(--moss)}
-.dtag.gf{color:var(--red-mid)}
-.dtag.nut{color:var(--warm2)}
-.dish-foot-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
-.dish-price{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;color:var(--red)}
-.dish-cta{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--warm3);border-bottom:1px solid var(--rule)}
-.no-results{padding:40px 24px;font-family:'Lora',serif;font-style:italic;font-size:14px;color:var(--warm3);border-top:1px solid var(--rule)}
+.dish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+  padding-bottom: 56px;
+}
 
-.footer-bar{border-top:2px solid var(--red);padding:16px 24px;background:var(--cream2);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--warm3);display:flex;justify-content:space-between;align-items:center}
-.footer-email{color:var(--red);border-bottom:1px solid var(--red-pale);text-decoration:none}
+/* ─── DISH CARD ────────────────────────────────────────────── */
+.dish-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.dish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+.dish-card:active { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-.overlay{display:none;position:fixed;inset:0;background:rgba(107,16,16,0.55);z-index:50;overflow-y:auto}
-.overlay.open{display:block}
-.drawer{background:var(--cream);margin:80px auto 0;max-width:480px;border-top:3px solid var(--gold);position:relative}
-.drawer-close{position:absolute;top:16px;right:20px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--warm3);cursor:pointer;background:none;border:none;padding:0}
-.drawer-close:hover{color:var(--red)}
+.card-img-wrap {
+  width: 100%;
+  height: 196px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F2EAE0 0%, #E8DDD0 100%);
+  flex-shrink: 0;
+  position: relative;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s var(--ease);
+}
+.dish-card:hover .card-img { transform: scale(1.04); }
+.card-img-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #F5EDE0 0%, #EAE0D0 100%);
+}
+.ph-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
 
-.d-hero{background:var(--red);padding:28px 24px 22px}
-.d-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.15;margin-bottom:4px}
-.d-price-line{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:600;color:var(--gold);letter-spacing:1px;margin-bottom:10px}
-.d-desc{font-family:'Lora',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,0.7);line-height:1.65;margin-bottom:14px}
-.d-tag-row{display:flex;gap:10px;flex-wrap:wrap}
-.d-hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;padding:4px 8px}
-.d-hero-tag.veg{background:var(--moss-light);color:var(--moss)}
-.d-hero-tag.vegan{background:var(--moss-light);color:var(--moss)}
-.d-hero-tag.gf{background:var(--gold-pale);color:var(--gold)}
-.d-hero-tag.nut{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7)}
+.card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  line-height: 1.28;
+  flex: 1;
+}
+.card-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.badge-a { background: var(--moss-bg); color: var(--moss-text); }
+.badge-b { background: #FFF3E8; color: #A04010; }
 
-.d-section{padding:20px 24px;border-bottom:1px solid var(--rule)}
-.d-sec-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--warm3);margin-bottom:14px}
-.carbon-row{display:flex;align-items:center;gap:16px}
-.carbon-grade-big{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1;width:56px;text-align:center;flex-shrink:0}
-.grade-big-a{color:var(--moss)}
-.grade-big-b{color:var(--red-mid)}
-.carbon-right{flex:1}
-.carbon-verdict{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--warm);margin-bottom:8px}
-.bar-track{height:4px;background:var(--cream3)}
-.bar-fill{height:4px}
-.bar-fill-a{background:var(--moss);width:22%}
-.bar-fill-b{background:var(--red-mid);width:58%}
-.bar-labels{display:flex;justify-content:space-between;margin-top:5px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--warm3)}
-.source-table{width:100%;border-collapse:collapse}
-.source-table tr{border-bottom:1px solid var(--rule)}
-.source-table tr:last-child{border-bottom:none}
-.source-table td{padding:10px 0;vertical-align:top}
-.s-ingredient{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--warm);width:38%}
-.s-farm{font-family:'Lora',serif;font-size:12px;font-style:italic;color:var(--warm2);line-height:1.4}
-.s-dist{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--moss);text-align:right;white-space:nowrap}
-.allergen-list{display:flex;flex-direction:column}
-.a-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule)}
-.a-row:last-child{border-bottom:none}
-.a-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.a-dot.has{background:var(--red-mid)}
-.a-dot.free{background:var(--moss)}
-.a-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;color:var(--warm)}
-.a-type{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--warm3);margin-left:auto}
+.card-desc {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+.card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.tag-veg   { color: var(--moss-text); background: var(--moss-bg); }
+.tag-vegan { color: var(--moss-text); background: var(--moss-bg); }
+.tag-gf    { color: #7A6010; background: var(--gold-bg); }
+.tag-nut   { color: var(--text-3); background: var(--bg); border: 1px solid var(--border); }
+
+.card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.card-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.card-cta {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.card-cta:hover { color: var(--red); }
+.card-cta-arrow { transition: transform 0.15s; }
+.card-cta:hover .card-cta-arrow { transform: translateX(3px); }
+
+/* ─── NO RESULTS ──────────────────────────────────────────── */
+.no-results {
+  grid-column: 1 / -1;
+  padding: 64px 24px;
+  text-align: center;
+}
+.no-results-text { font-size: 15px; color: var(--text-3); }
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+.footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-brand {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.2px;
+}
+.footer-right { display: flex; align-items: center; gap: 20px; }
+.footer-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--red); }
+.footer-email { color: var(--red); }
+@media (max-width: 600px) {
+  .footer { flex-direction: column; align-items: flex-start; padding: 20px; }
+  .body-wrap { padding: 0 16px; }
+}
+
+/* ─── DRAWER OVERLAY ──────────────────────────────────────── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,5,5,0.5);
+  z-index: 200;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+.overlay.open { display: flex; animation: fadeIn 0.2s var(--ease); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.drawer {
+  background: var(--bg);
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  border-radius: 20px 20px 0 0;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s var(--ease);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.drawer::-webkit-scrollbar { width: 4px; }
+.drawer::-webkit-scrollbar-track { background: transparent; }
+.drawer::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0.8; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@media (min-width: 600px) {
+  .overlay { align-items: center; padding: 32px; }
+  .drawer {
+    border-radius: 20px;
+    max-height: 88vh;
+    animation: scaleIn 0.25s var(--ease);
+  }
+  @keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+}
+
+/* drawer handle pill */
+.drawer-handle {
+  width: 36px; height: 4px;
+  background: var(--border-mid);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+@media (min-width: 600px) { .drawer-handle { display: none; } }
+
+.drawer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
+  font-size: 16px;
+  transition: background 0.15s, color 0.15s;
+  z-index: 2;
+}
+.drawer-close:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* Drawer Hero */
+.d-hero {
+  background: var(--red);
+  padding: 28px 28px 24px;
+  position: relative;
+}
+.d-hero-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: block;
+}
+.d-hero-img-ph {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  opacity: 0.5;
+}
+.d-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.d-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+}
+.d-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.d-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.d-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+.d-tag-veg, .d-tag-vegan { background: var(--moss-bg); color: var(--moss-text); }
+.d-tag-gf  { background: var(--gold-bg); color: #8A6510; }
+.d-tag-nut { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
+
+/* Drawer Sections */
+.d-section {
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.d-section:last-child { border-bottom: none; padding-bottom: 40px; }
+.d-sec-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+
+/* Carbon */
+.carbon-row { display: flex; align-items: center; gap: 18px; }
+.carbon-grade {
+  font-family: 'Inter', sans-serif;
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+  width: 60px;
+  text-align: center;
+  flex-shrink: 0;
+  letter-spacing: -1px;
+}
+.grade-a { color: var(--moss-text); }
+.grade-b { color: #B04A00; }
+.carbon-info { flex: 1; }
+.carbon-verdict {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.bar-track { height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 5px; border-radius: 999px; transition: width 0.6s var(--ease); }
+.bar-a { background: var(--moss); width: 22%; }
+.bar-b { background: #D06030; width: 58%; }
+.bar-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-3);
+}
+
+/* Sourcing table */
+.source-table { width: 100%; border-collapse: collapse; }
+.source-table tr { border-bottom: 1px solid var(--border); }
+.source-table tr:last-child { border-bottom: none; }
+.source-table td { padding: 11px 0; vertical-align: top; }
+.s-ing {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  width: 36%;
+  padding-right: 12px;
+}
+.s-farm { font-size: 13px; color: var(--text-2); line-height: 1.4; }
+.s-dist {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--moss-text);
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 8px;
+}
+
+/* Allergens */
+.allergen-list { display: flex; flex-direction: column; }
+.a-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.a-row:last-child { border-bottom: none; }
+.a-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.a-dot-has { background: #D05030; }
+.a-dot-free { background: var(--moss); }
+.a-label { font-size: 13.5px; font-weight: 500; color: var(--text); }
+.a-type {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--text-3);
+  margin-left: auto;
+}
+.a-type-free { color: var(--moss-text); }
 </style>
 </head>
 <body>
 
-<div class="app" id="app">
-  <div class="masthead">
-    <div class="mast-top">
-      <div class="brand">Pizza <em>Star</em></div>
-      <div class="eco-stamp">Eco-Menu</div>
-    </div>
-    <div class="mast-meta">
-      <span>Princeton, NJ</span>
-      <span>Updated weekly</span>
-      <span>60-mile sourcing radius</span>
-    </div>
+<!-- ── STICKY NAV ───────────────────────────────────────────── -->
+<nav class="nav">
+  <a class="nav-brand" href="#">Pizza <em>Star</em></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Sourcing</a></li>
+    </ul>
+    <div class="nav-eco">Eco Menu</div>
   </div>
+</nav>
 
-  <div class="search-zone">
-    <input class="search-field" type="text" id="searchInput" placeholder="Search dishes or ingredients…" oninput="render()" autocomplete="off">
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-eyebrow">Princeton, NJ — Est. 2019</div>
+  <h1 class="hero-title">Pizza <em>Star</em><br>Eco Menu</h1>
+  <p class="hero-sub">Every dish sourced within 60 miles. Seasonal ingredients, local farms, transparent origins.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">Princeton, NJ</span>
+    <span class="hero-pill">Updated weekly</span>
+    <span class="hero-pill">60-mile radius</span>
   </div>
+</section>
 
-  <div class="filter-strip">
-    <span class="f-label">Filter</span>
-    <button class="f-btn on" onclick="setFilter('all',this)">All</button>
-    <button class="f-btn" onclick="setFilter('vegetarian',this)">Vegetarian</button>
-    <button class="f-btn" onclick="setFilter('vegan',this)">Vegan</button>
-    <button class="f-btn" onclick="setFilter('gluten-free',this)">Gluten-Free</button>
-    <button class="f-btn" onclick="setFilter('nut-free',this)">Nut-Free</button>
+<!-- ── CONTROLS ──────────────────────────────────────────────── -->
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M15 15l-3-3"/></svg>
+    </span>
+    <input class="search-input" type="text" id="searchInput" placeholder="Search dishes, ingredients…" oninput="render()" autocomplete="off">
   </div>
-
-  <div class="provenance-bar">
-    <span class="prov-mark">&#x2767;</span>
-    <div class="prov-text">Every ingredient traced to a farm within 60 miles of Princeton. Sourcing updated each Monday. Tap any dish for full details.</div>
-  </div>
-
-  <div class="body-wrap">
-    <div class="section-rule">
-      <span class="sr-word">Our Specialties</span>
-      <div class="sr-line"></div>
-    </div>
-    <div class="dish-list" id="dishList"></div>
-    <div id="noResults" class="no-results" style="display:none">No dishes match — try adjusting your filter or search.</div>
-  </div>
-
-  <div class="footer-bar">
-    <span>Questions? Ask your server</span>
-    <a class="footer-email" href="/cdn-cgi/l/email-protection#3b5e58547b4b5241415a484f5a494b495255585e4f545515585456"><span class="__cf_email__" data-cfemail="a2c7c1cde2d2cbd8d8c3d1d6c3d0d2d0cbccc1c7d6cdcc8cc1cdcf">[email&#160;protected]</span></a>
+  <div class="filter-row" id="filterRow">
+    <button class="f-pill on" onclick="setFilter('all',this)">All</button>
+    <button class="f-pill" onclick="setFilter('vegetarian',this)">Vegetarian</button>
+    <button class="f-pill" onclick="setFilter('vegan',this)">Vegan</button>
+    <button class="f-pill" onclick="setFilter('gluten-free',this)">Gluten-Free</button>
+    <button class="f-pill" onclick="setFilter('nut-free',this)">Nut-Free</button>
   </div>
 </div>
 
+<!-- ── PROVENANCE BAR ─────────────────────────────────────────── -->
+<div class="prov-bar">
+  <p class="prov-text">Every ingredient traced to a farm within 60 miles of Princeton. <strong>Sourcing updated each Monday.</strong> Tap any dish for full details.</p>
+</div>
+
+<!-- ── MENU GRID ──────────────────────────────────────────────── -->
+<div class="body-wrap">
+  <div class="section-rule">
+    <h2 class="sr-title">Our Specialties</h2>
+    <span class="sr-count" id="dishCount"></span>
+    <div class="sr-line"></div>
+  </div>
+  <div class="dish-grid" id="dishList"></div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-brand">Pizza Star</div>
+  <div class="footer-right">
+    <span style="font-size:13px;color:var(--text-3)">Questions? Ask your server or</span>
+    <a class="footer-link footer-email" href="mailto:hello@pizzastar.com">hello@pizzastar.com</a>
+  </div>
+</footer>
+
+<!-- ── DRAWER OVERLAY ──────────────────────────────────────────── -->
 <div class="overlay" id="overlay" onclick="closeIfBg(event)">
   <div class="drawer" id="drawer">
-    <button class="drawer-close" onclick="closeDrawer()">&#x2715; Close</button>
+    <div class="drawer-handle"></div>
+    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">✕</button>
     <div class="d-hero">
+      <div id="dHeroImg"></div>
       <div class="d-name" id="dName"></div>
-      <div class="d-price-line" id="dPrice"></div>
+      <div class="d-price" id="dPrice"></div>
       <div class="d-desc" id="dDesc"></div>
-      <div class="d-tag-row" id="dTags"></div>
+      <div class="d-tags" id="dTags"></div>
     </div>
     <div class="d-section">
-      <div class="d-sec-label">Carbon impact</div>
+      <div class="d-sec-label">Carbon Impact</div>
       <div class="carbon-row" id="dCarbon"></div>
     </div>
     <div class="d-section">
-      <div class="d-sec-label">Ingredient sourcing</div>
+      <div class="d-sec-label">Ingredient Sourcing</div>
       <table class="source-table" id="dSources"></table>
     </div>
-    <div class="d-section" style="border-bottom:none;padding-bottom:48px">
-      <div class="d-sec-label">Allergens &amp; dietary</div>
+    <div class="d-section">
+      <div class="d-sec-label">Allergens &amp; Dietary</div>
       <div class="allergen-list" id="dAllergens"></div>
     </div>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const D = [
   {
     id:1, price:"18", img:"penne-alla-vodka.png", name:"Penne Alla Vodka Pizza",
@@ -224,10 +843,10 @@ const D = [
     tags:["vegetarian","nut-free"],
     carbon:{g:"A",text:"Very low carbon impact"},
     sources:[
-      {i:"Buffalo mozzarella",    f:"Valley Shepherd Creamery, Long Valley NJ", d:"<25 mi"},
-      {i:"Plum tomatoes",         f:"Melick's Town Farm, Oldwick NJ",           d:"<30 mi"},
-      {i:"Fresh basil",           f:"Whispering Springs Farm, Pennington NJ",   d:"<15 mi"},
-      {i:"Extra virgin olive oil",f:"Imported — Italy (small-batch)",           d:"—"},
+      {i:"Buffalo mozzarella",     f:"Valley Shepherd Creamery, Long Valley NJ", d:"<25 mi"},
+      {i:"Plum tomatoes",          f:"Melick's Town Farm, Oldwick NJ",           d:"<30 mi"},
+      {i:"Fresh basil",            f:"Whispering Springs Farm, Pennington NJ",   d:"<15 mi"},
+      {i:"Extra virgin olive oil", f:"Imported — Italy (small-batch)",           d:"—"},
     ],
     allergens:[
       {l:"Gluten",     t:"contains"},
@@ -242,10 +861,10 @@ const D = [
     tags:["vegetarian","vegan","gluten-free"],
     carbon:{g:"A",text:"Very low carbon impact"},
     sources:[
-      {i:"Seasonal greens", f:"Terhune Orchards, Princeton NJ",          d:"<5 mi"},
-      {i:"Beets",           f:"Gravity Hill Farm, Lambertville NJ",      d:"<15 mi"},
-      {i:"Walnuts",         f:"Local supplier, Flemington NJ",           d:"<25 mi"},
-      {i:"Lemon",           f:"Fox Hill Farm, Pittstown NJ",             d:"<35 mi"},
+      {i:"Seasonal greens", f:"Terhune Orchards, Princeton NJ",      d:"<5 mi"},
+      {i:"Beets",           f:"Gravity Hill Farm, Lambertville NJ",  d:"<15 mi"},
+      {i:"Walnuts",         f:"Local supplier, Flemington NJ",       d:"<25 mi"},
+      {i:"Lemon",           f:"Fox Hill Farm, Pittstown NJ",         d:"<35 mi"},
     ],
     allergens:[
       {l:"Tree nuts",   t:"contains"},
@@ -260,10 +879,10 @@ const D = [
     tags:["vegetarian","nut-free"],
     carbon:{g:"B",text:"Moderate carbon impact"},
     sources:[
-      {i:"Wild mushrooms", f:"Shibumi Farm, Kutztown PA",              d:"<60 mi"},
-      {i:"Black truffle oil",f:"Imported — Italy (small vol.)",        d:"—"},
-      {i:"Pasta",          f:"Severino Pasta, Cherry Hill NJ",         d:"<50 mi"},
-      {i:"Garlic",         f:"Fox Hill Farm, Pittstown NJ",            d:"<35 mi"},
+      {i:"Wild mushrooms",    f:"Shibumi Farm, Kutztown PA",         d:"<60 mi"},
+      {i:"Black truffle oil", f:"Imported — Italy (small vol.)",     d:"—"},
+      {i:"Pasta",             f:"Severino Pasta, Cherry Hill NJ",    d:"<50 mi"},
+      {i:"Garlic",            f:"Fox Hill Farm, Pittstown NJ",       d:"<35 mi"},
     ],
     allergens:[
       {l:"Gluten",     t:"contains"},
@@ -279,10 +898,10 @@ const D = [
     tags:["vegetarian","nut-free"],
     carbon:{g:"B",text:"Moderate carbon impact"},
     sources:[
-      {i:"Eggs",        f:"Griggstown Farm, Princeton NJ",             d:"<10 mi"},
-      {i:"Mascarpone",  f:"Cherry Grove Farm, Lawrenceville NJ",       d:"<10 mi"},
-      {i:"Espresso",    f:"Small-batch roaster, Trenton NJ",           d:"<20 mi"},
-      {i:"Ladyfingers", f:"Local Italian bakery, Princeton NJ",        d:"<5 mi"},
+      {i:"Eggs",        f:"Griggstown Farm, Princeton NJ",          d:"<10 mi"},
+      {i:"Mascarpone",  f:"Cherry Grove Farm, Lawrenceville NJ",    d:"<10 mi"},
+      {i:"Espresso",    f:"Small-batch roaster, Trenton NJ",        d:"<20 mi"},
+      {i:"Ladyfingers", f:"Local Italian bakery, Princeton NJ",     d:"<5 mi"},
     ],
     allergens:[
       {l:"Gluten",     t:"contains"},
@@ -294,49 +913,80 @@ const D = [
   },
 ];
 
-const tagMap = {
-  vegetarian:   {cls:'veg',   label:'Vegetarian'},
-  vegan:        {cls:'vegan', label:'Vegan'},
-  'gluten-free':{cls:'gf',    label:'Gluten-Free'},
-  'nut-free':   {cls:'nut',   label:'Nut-Free'},
+const tagMeta = {
+  'vegetarian':   { cls:'veg',   label:'Vegetarian' },
+  'vegan':        { cls:'vegan', label:'Vegan'       },
+  'gluten-free':  { cls:'gf',    label:'Gluten-Free' },
+  'nut-free':     { cls:'nut',   label:'Nut-Free'    },
+};
+
+const drawerTagMeta = {
+  'vegetarian':  { cls:'d-tag-veg',   label:'Vegetarian'  },
+  'vegan':       { cls:'d-tag-vegan', label:'Vegan'        },
+  'gluten-free': { cls:'d-tag-gf',    label:'Gluten-Free'  },
+  'nut-free':    { cls:'d-tag-nut',   label:'Nut-Free'     },
 };
 
 let activeFilter = 'all';
 
 function setFilter(f, btn) {
   activeFilter = f;
-  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.f-pill').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   render();
 }
 
+function imgTag(src, alt) {
+  return `<img class="card-img" src="${src}" alt="${alt}"
+    onerror="this.parentElement.innerHTML='<div class=\\'card-img-ph\\'><div class=\\'ph-text\\'>Photo coming soon</div></div>'"
+    loading="lazy">`;
+}
+
 function render() {
-  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
   const list = document.getElementById('dishList');
-  const noR  = document.getElementById('noResults');
+
   const filtered = D.filter(d => {
     const mf = activeFilter === 'all' || d.tags.includes(activeFilter);
-    const ms = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.sources.some(s => s.i.toLowerCase().includes(q));
+    const ms = !q || d.name.toLowerCase().includes(q)
+                  || d.desc.toLowerCase().includes(q)
+                  || d.sources.some(s => s.i.toLowerCase().includes(q));
     return mf && ms;
   });
-  if (!filtered.length) { list.innerHTML = ''; noR.style.display = 'block'; return; }
-  noR.style.display = 'none';
+
+  const count = document.getElementById('dishCount');
+  count.textContent = filtered.length + (filtered.length === 1 ? ' dish' : ' dishes');
+
+  if (!filtered.length) {
+    list.innerHTML = `
+      <div class="no-results">
+        <div class="no-results-text">No dishes found — try a different filter or search term.</div>
+      </div>`;
+    return;
+  }
+
   list.innerHTML = filtered.map(d => `
-    <div class="dish-row" onclick="openDish(${d.id})">
-      <div class="dish-inner">
-        <div class="dish-thumb"><img src="${d.img}" alt="${d.name}" onerror="this.outerHTML='pic.png'"></div>
-        <div class="dish-body">
-          <div class="dish-top">
-            <div class="dish-name">${d.name}</div>
-            <div class="dish-score score-${d.carbon.g.toLowerCase()}">${d.carbon.g}</div>
+    <div class="dish-card" onclick="openDish(${d.id})" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter'||event.key===' ')openDish(${d.id})">
+      <div class="card-img-wrap">${imgTag(d.img, d.name)}</div>
+      <div class="card-body">
+        <div class="card-top">
+          <h3 class="card-name">${d.name}</h3>
+          <span class="card-badge badge-${d.carbon.g.toLowerCase()}">${d.carbon.g} Grade</span>
+        </div>
+        <p class="card-desc">${d.desc}</p>
+        <div class="card-footer">
+          <div class="card-tags">
+            ${d.tags.map(t => {
+              const m = tagMeta[t];
+              return m ? `<span class="tag tag-${m.cls}">${m.label}</span>` : '';
+            }).join('')}
           </div>
-          <div class="dish-desc">${d.desc}</div>
-          <div class="dish-footer">
-            <div class="dish-tags">${d.tags.map(t => `<span class="dtag ${tagMap[t]?tagMap[t].cls:''}">${tagMap[t]?tagMap[t].label:t}</span>`).join('')}</div>
-            <div class="dish-foot-right">
-              <span class="dish-price">$${d.price}</span>
-              <span class="dish-cta">View sourcing</span>
-            </div>
+          <div class="card-right">
+            <span class="card-price">$${d.price}</span>
+            <button class="card-cta" tabindex="-1">
+              View sourcing <span class="card-cta-arrow">→</span>
+            </button>
           </div>
         </div>
       </div>
@@ -347,34 +997,52 @@ function render() {
 function openDish(id) {
   const d = D.find(x => x.id === id);
   if (!d) return;
+
+  // hero image
+  document.getElementById('dHeroImg').innerHTML =
+    `<img class="d-hero-img" src="${d.img}" alt="${d.name}"
+       onerror="this.outerHTML='<div class=\\'d-hero-img-ph\\'></div>'">`;
+
   document.getElementById('dName').textContent  = d.name;
   document.getElementById('dPrice').textContent = '$' + d.price;
   document.getElementById('dDesc').textContent  = d.desc;
-  document.getElementById('dTags').innerHTML = d.tags.map(t =>
-    `<span class="d-hero-tag ${tagMap[t]?tagMap[t].cls:''}">${tagMap[t]?tagMap[t].label:t}</span>`
-  ).join('');
-  const g = d.carbon.g;
+
+  document.getElementById('dTags').innerHTML = d.tags.map(t => {
+    const m = drawerTagMeta[t] || { cls:'d-tag-nut', label: t };
+    return `<span class="d-tag ${m.cls}">${m.label}</span>`;
+  }).join('');
+
+  const g = d.carbon.g.toLowerCase();
   document.getElementById('dCarbon').innerHTML = `
-    <div class="carbon-grade-big grade-big-${g.toLowerCase()}">${g}</div>
-    <div class="carbon-right">
+    <div class="carbon-grade grade-${g}">${d.carbon.g}</div>
+    <div class="carbon-info">
       <div class="carbon-verdict">${d.carbon.text}</div>
-      <div class="bar-track"><div class="bar-fill bar-fill-${g.toLowerCase()}"></div></div>
+      <div class="bar-track"><div class="bar-fill bar-${g}"></div></div>
       <div class="bar-labels"><span>Lower impact</span><span>Higher impact</span></div>
     </div>`;
+
   document.getElementById('dSources').innerHTML = d.sources.map(s => `
     <tr>
-      <td class="s-ingredient">${s.i}</td>
+      <td class="s-ing">${s.i}</td>
       <td class="s-farm">${s.f}</td>
       <td class="s-dist">${s.d}</td>
     </tr>`).join('');
+
   document.getElementById('dAllergens').innerHTML = d.allergens.map(a => `
     <div class="a-row">
-      <div class="a-dot ${a.t === 'contains' ? 'has' : 'free'}"></div>
+      <div class="a-dot ${a.t === 'contains' ? 'a-dot-has' : 'a-dot-free'}"></div>
       <div class="a-label">${a.l}</div>
-      <div class="a-type">${a.t === 'contains' ? 'Contains' : 'Free from'}</div>
+      <div class="a-type ${a.t === 'free' ? 'a-type-free' : ''}">
+        ${a.t === 'contains' ? 'Contains' : 'Free from'}
+      </div>
     </div>`).join('');
-  document.getElementById('overlay').classList.add('open');
+
+  const overlay = document.getElementById('overlay');
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // scroll drawer to top
+  document.getElementById('drawer').scrollTop = 0;
 }
 
 function closeDrawer() {
@@ -385,6 +1053,11 @@ function closeDrawer() {
 function closeIfBg(e) {
   if (e.target === document.getElementById('overlay')) closeDrawer();
 }
+
+// keyboard ESC to close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDrawer();
+});
 
 render();
 </script>

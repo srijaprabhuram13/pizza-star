@@ -61,20 +61,29 @@ body {
 }
 .nav-brand {
   font-family: 'Playfair Display', serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 900;
   color: var(--moss);
   letter-spacing: -0.5px;
   text-decoration: none;
   display: flex;
-  align-items: baseline;
-  gap: 4px;
+  align-items: center;
+  gap: 10px;
 }
 .nav-brand em { font-style: normal; color: var(--red); }
-.nav-right { display: flex; align-items: center; gap: 24px; }
-.nav-links { display: flex; align-items: center; gap: 22px; list-style: none; }
+.nav-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+}
+.nav-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
 .nav-links a {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-2);
   text-decoration: none;
@@ -84,14 +93,15 @@ body {
 .nav-links a:hover { color: var(--red); }
 .nav-eco {
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
+  font-weight: 700;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--moss-text);
-  background: var(--moss-bg);
-  border: 1px solid rgba(42,74,40,0.12);
-  padding: 6px 14px;
+  color: #fff;
+  background: var(--moss);
+  border: none;
+  padding: 7px 16px;
   border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(44,95,46,0.25);
 }
 @media (max-width: 600px) {
   .nav { padding: 0 20px; }
@@ -100,19 +110,36 @@ body {
 
 /* ─── HERO ─────────────────────────────────────────────────── */
 .hero {
-  background: linear-gradient(155deg, #C41E3A 0%, #8B0F25 100%);
-  padding: 56px 32px 52px;
+  background: linear-gradient(170deg, #CC2040 0%, #B8192E 45%, #720A1A 100%);
+  padding: 60px 32px 64px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-/* subtle radial vignette for depth */
+/* faded logo watermark in background */
+.hero-watermark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  opacity: 0.055;
+  filter: blur(1.5px);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-watermark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+/* radial light glow at center top */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, transparent 50%, rgba(0,0,0,0.18) 100%);
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(255,210,190,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.28) 0%, transparent 60%);
   pointer-events: none;
+  z-index: 0;
 }
 .hero::after {
   content: '';
@@ -120,70 +147,95 @@ body {
   bottom: -1px;
   left: 0;
   right: 0;
-  height: 36px;
+  height: 40px;
   background: var(--bg);
   clip-path: ellipse(55% 100% at 50% 100%);
   pointer-events: none;
+  z-index: 1;
 }
+/* all hero content above watermark */
+.hero > *:not(.hero-watermark) { position: relative; z-index: 1; }
 .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.38);
-  margin-bottom: 18px;
-  position: relative;
+  color: rgba(255,255,255,0.32);
+  margin-bottom: 12px;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: rgba(255,255,255,0.16);
+  flex-shrink: 0;
 }
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(48px, 9vw, 72px);
+  font-size: clamp(54px, 10vw, 80px);
   font-weight: 900;
   color: #FAF6F0;
-  letter-spacing: -2px;
+  letter-spacing: -1.5px;
   line-height: 1.0;
-  margin-bottom: 12px;
-  position: relative;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 32px rgba(0,0,0,0.25);
 }
-.hero-title em { font-style: italic; color: #FAF6F0; }
+.hero-title em { font-style: italic; }
 .hero-eco-label {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 5px 14px;
+  color: #fff;
+  background: var(--moss);
+  border: 1px solid rgba(126,216,126,0.3);
+  padding: 8px 18px;
   border-radius: 999px;
-  margin-bottom: 22px;
-  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 14px rgba(44,95,46,0.45);
+}
+.hero-eco-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7ED87E;
+  flex-shrink: 0;
+  box-shadow: 0 0 5px #7ED87E;
 }
 .hero-sub {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
-  color: rgba(255,255,255,0.58);
-  max-width: 340px;
-  margin: 0 auto 28px;
-  line-height: 1.65;
+  color: rgba(255,255,255,0.4);
+  max-width: 300px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
   letter-spacing: 0.1px;
-  position: relative;
 }
 .hero-pills {
   display: flex;
   justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
-  position: relative;
 }
 .hero-pill {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.13);
-  padding: 5px 14px;
+  color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 4px 12px;
   border-radius: 999px;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(4px);
 }
 
 /* ─── CONTROLS (SEARCH + FILTERS) ──────────────────────────── */
@@ -241,7 +293,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
   border: 1.5px solid var(--border-mid);
   font-family: 'Inter', sans-serif;
@@ -254,9 +306,10 @@ body {
   white-space: nowrap;
   flex-shrink: 0;
   user-select: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-.f-pill:hover { border-color: var(--red); color: var(--red); background: var(--red-ghost); }
-.f-pill.on { background: var(--red); border-color: var(--red); color: #fff; }
+.f-pill:hover { border-color: var(--red); color: var(--red); background: var(--red-ghost); box-shadow: 0 2px 6px rgba(196,30,58,0.1); }
+.f-pill.on { background: var(--red); border-color: var(--red); color: #fff; box-shadow: 0 3px 10px rgba(196,30,58,0.3); }
 @media (max-width: 600px) {
   .controls { padding: 14px 20px; }
 }
@@ -346,7 +399,7 @@ body {
   flex-shrink: 0;
 }
 .dish-card.featured .card-body {
-  padding: 26px 28px;
+  padding: 28px 30px;
   justify-content: center;
 }
 .dish-card.featured .card-name { font-size: 22px; line-height: 1.2; }
@@ -403,7 +456,7 @@ body {
   color: var(--text-3);
 }
 
-.card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+.card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
 .card-top {
   display: flex;
   justify-content: space-between;
@@ -413,11 +466,11 @@ body {
 }
 .card-name {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.3px;
-  line-height: 1.28;
+  line-height: 1.25;
   flex: 1;
 }
 .card-badge {
@@ -434,9 +487,9 @@ body {
 .badge-b { background: #FFF3E8; color: #A04010; }
 
 .card-desc {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 400;
-  color: var(--text-2);
+  color: var(--text-3);
   line-height: 1.65;
   margin-bottom: 16px;
   flex: 1;
@@ -785,7 +838,12 @@ body {
 
 <!-- ── STICKY NAV ───────────────────────────────────────────── -->
 <nav class="nav">
-  <a class="nav-brand" href="#">Pizza <em>Star</em></a>
+  <a class="nav-brand" href="#">
+    <span class="nav-logo">
+      <img src="logo.png" alt="Pizza Star logo">
+    </span>
+    Pizza <em>Star</em>
+  </a>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#">Menu</a></li>
@@ -798,7 +856,8 @@ body {
 
 <!-- ── HERO ─────────────────────────────────────────────────── -->
 <section class="hero">
-  <div class="hero-eyebrow">Princeton, NJ — Est. 2019</div>
+  <div class="hero-watermark"><img src="logo.png" alt=""></div>
+  <div class="hero-eyebrow">Princeton, NJ &nbsp;·&nbsp; Est. 1977</div>
   <h1 class="hero-title">Pizza <em>Star</em></h1>
   <div class="hero-eco-label">Eco Menu</div>
   <p class="hero-sub">Every dish sourced within 60 miles. Seasonal ingredients, local farms, transparent origins.</p>
@@ -845,8 +904,7 @@ body {
 <footer class="footer">
   <div class="footer-brand">Pizza Star</div>
   <div class="footer-right">
-    <span style="font-size:13px;color:var(--text-3)">Questions? Ask your server or</span>
-    <a class="footer-link footer-email" href="mailto:hello@pizzastar.com">hello@pizzastar.com</a>
+    <a class="footer-link footer-email" href="tel:+16099217422">Call us at +1 609-921-7422</a>
   </div>
 </footer>
 
@@ -1016,8 +1074,11 @@ function render() {
     return mf && ms;
   });
 
+  const MENU_TOTAL = 65;
   const count = document.getElementById('dishCount');
-  count.textContent = filtered.length + (filtered.length === 1 ? ' dish' : ' dishes');
+  count.textContent = (q || activeFilter !== 'all')
+    ? filtered.length + (filtered.length === 1 ? ' match' : ' matches')
+    : MENU_TOTAL + ' dishes';
 
   if (!filtered.length) {
     list.innerHTML = `
